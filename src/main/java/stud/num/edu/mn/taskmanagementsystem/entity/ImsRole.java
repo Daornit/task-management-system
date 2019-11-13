@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -22,10 +23,10 @@ public class ImsRole implements Serializable {
     @Column(name = "ROLE")
     private String role;
 
-    @Column(name = "USERNAME")
-    private String username;
-
     @Column(name = "IS_ACTIVE")
     private Boolean isActive;
 
+    @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.ALL)
+    @JoinColumn(name = "ROLE_ID", referencedColumnName = "ID")
+    private List<ImsPermission> permissions;
 }

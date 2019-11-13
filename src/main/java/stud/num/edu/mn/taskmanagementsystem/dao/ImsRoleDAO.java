@@ -6,4 +6,5 @@ import stud.num.edu.mn.taskmanagementsystem.entity.ImsRole;
 
 @RepositoryRestResource(collectionResourceRel = "imsRole", path = "imsRole")
 public interface ImsRoleDAO extends PagingAndSortingRepository<ImsRole, Long> {
+    ImsRole findByRole(String role);
 }

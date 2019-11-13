@@ -4,6 +4,7 @@ import lombok.Data;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 import stud.num.edu.mn.taskmanagementsystem.core.BaseEntity;
+import stud.num.edu.mn.taskmanagementsystem.entity.ImsUser;
 
 import javax.persistence.*;
 import java.util.List;
@@ -21,20 +22,12 @@ public class HrmTeam extends BaseEntity {
     @Column(name = "CODE")
     private String code;
 
-    @Column(name = "NAME")
-    private String name;
-
-    @Column(name ="TEAM_LEADER")
-    private Long teamLeader;
-
-    @OneToOne
-    @JoinColumn(name = "ID", referencedColumnName = "TEAM_LEADER")
-    @NotFound(action = NotFoundAction.IGNORE)
-    private HrmWorker leaderWorker;
+    @Column(name = "WORK_SPACE_CODE")
+    private String workSpaceCode;
 
     @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true)
     @JoinColumn(name = "TEAM_CODE", referencedColumnName = "CODE")
     @NotFound(action = NotFoundAction.IGNORE)
-    private List<HrmWorker> members;
+    private List<ImsUser> members;
 
 }

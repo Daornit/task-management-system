@@ -8,7 +8,6 @@ import stud.num.edu.mn.taskmanagementsystem.entity.ImsUser;
 
 @RepositoryRestResource(collectionResourceRel = "imsUser", path = "imsUser")
 public interface ImsUserDAO extends PagingAndSortingRepository<ImsUser, Long> {
-
-    @Query("SELECT u FROM ImsUser u LEFT JOIN FETCH u.roles rl WHERE u.username=?1 AND rl.isActive=true")
-    ImsUser findByUsername(String username);
+    @Query("SELECT s from ImsUser s where s.email = ?1")
+    ImsUser findByEmail(String email);
 }

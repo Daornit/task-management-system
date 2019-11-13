@@ -5,9 +5,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class ImsModel {
-    private String username;
+@NoArgsConstructor
+public class RegisterModel {
+    private String firstName;
+    private String lastName;
+    private String email;
     private String password;
+    private String phone;
+    private String businessTitle;
 }
