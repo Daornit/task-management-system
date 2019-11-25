@@ -1,16 +1,21 @@
 package stud.num.edu.mn.taskmanagementsystem.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import org.springframework.data.rest.core.annotation.RestResource;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 @Data
 @Entity
 @Table(name = "USER", schema = "IMS")
 @RestResource
-@SequenceGenerator(name="ImsUserSeq", sequenceName = "IMS.SEQ_USER", allocationSize = 1, initialValue = 1000    )
+@SequenceGenerator(name="ImsUserSeq", sequenceName = "IMS.SEQ_USER", allocationSize = 1, initialValue = 1000)
 public class ImsUser implements Serializable {
     @Id
     @Column(name = "ID")
@@ -44,20 +49,40 @@ public class ImsUser implements Serializable {
     @Column(name = "ADDRESS")
     private String address;
 
-    @Column(name = "TEAM_CODE")
-    private String teamCode;
-
     @Column(name = "GROUP_CODE")
     private String groupCode;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "role")
     private ImsRole role;
+
+    @JsonIgnore
+    public String getPassword() {
+        return password;
+    }
+
+    @JsonProperty
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
     public String getUsername(){
         if(this.lastName != null && this.lastName.length() > 0 && this.firstName != null) {
             return lastName.substring(0,1).toUpperCase() + ". " + firstName;
         }
         return "Default";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ImsUser user = (ImsUser) o;
+        return Objects.equals(id, user.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

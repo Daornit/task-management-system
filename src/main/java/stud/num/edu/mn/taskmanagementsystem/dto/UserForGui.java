@@ -15,5 +15,6 @@ public class UserForGui  implements Serializable {
     private Long id;
     private String avatar;
     private String username;
+    private String groupCode;
     private HashMap<String, String> permissions;
 }

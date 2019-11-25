@@ -14,4 +14,7 @@ public class RegisterModel {
     private String password;
     private String phone;
     private String businessTitle;
+    private String role;
+    private String groupCode;
+    private Boolean isInvitation;
 }

@@ -1,14 +1,17 @@
 package stud.num.edu.mn.taskmanagementsystem.entity.work;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 import stud.num.edu.mn.taskmanagementsystem.core.BaseEntity;
-import stud.num.edu.mn.taskmanagementsystem.entity.hrm.HrmTeam;
+import stud.num.edu.mn.taskmanagementsystem.entity.ImsUser;
+import stud.num.edu.mn.taskmanagementsystem.entity.Team;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -29,19 +32,21 @@ public class WorkSpace extends BaseEntity {
     @Column(name = "CODE")
     private String code;
 
-    @Column(name = "TEAM_CODE")
-    private Boolean teamCode;
-
     @Column(name = "IS_DELETED")
     private Boolean isDeleted;
+
+    @OneToOne(fetch = FetchType.LAZY, orphanRemoval = true)
+    @JoinColumn(name = "OWNER_ID", referencedColumnName = "ID")
+    @NotFound(action = NotFoundAction.IGNORE)
+    private ImsUser owner;
 
     @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true)
     @JoinColumn(name = "WORK_SPACE_CODE", referencedColumnName = "CODE")
     @NotFound(action = NotFoundAction.IGNORE)
-    private List<WorkPackage> workPackages;
+    private List<WorkPackage> workPackages = new ArrayList<>();
 
     @OneToOne(fetch = FetchType.LAZY, orphanRemoval = true)
-    @JoinColumn(name = "WORK_SPACE_CODE", referencedColumnName = "CODE")
+    @JoinColumn(name = "TEAM_CODE", referencedColumnName = "CODE")
     @NotFound(action = NotFoundAction.IGNORE)
-    private HrmTeam team;
+    private Team team;
 }

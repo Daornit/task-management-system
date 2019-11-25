@@ -6,6 +6,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.SimpleMailMessage;
@@ -17,6 +18,7 @@ import stud.num.edu.mn.taskmanagementsystem.dto.RegisterModel;
 import stud.num.edu.mn.taskmanagementsystem.dto.UserForGui;
 import stud.num.edu.mn.taskmanagementsystem.dto.UserModel;
 import stud.num.edu.mn.taskmanagementsystem.entity.ConfirmationToken;
+import stud.num.edu.mn.taskmanagementsystem.entity.ImsRole;
 import stud.num.edu.mn.taskmanagementsystem.entity.ImsUser;
 import stud.num.edu.mn.taskmanagementsystem.exceptions.UserAlreadyExistException;
 import stud.num.edu.mn.taskmanagementsystem.security.SecurityConstants;
@@ -43,8 +45,12 @@ public class AccountManagementController {
     public ResponseEntity login(@RequestBody() ImsModel imsModel) {
         log.info(imsModel.toString());
         ImsUser user = imsUserDAO.findByEmail(imsModel.getEmail());
-        if(user != null &&
-                user.getPassword().equals(imsModel.getPassword())){
+        log.info(user.toString());
+        if(
+                user != null &&
+                user.getPassword().equals(imsModel.getPassword()) &&
+                user.isEnabled()
+        ){
 
             System.out.println("USER :: " + user.toString());
             String token = getJWTToken(user);
@@ -54,6 +60,7 @@ public class AccountManagementController {
             UserForGui userForGui = new UserForGui();
             userForGui.setId(user.getId());
             userForGui.setAvatar(user.getAvatar());
+            userForGui.setGroupCode(user.getGroupCode());
             userForGui.setUsername(user.getUsername());
             userForGui.setPermissions(new HashMap<>());
             userForGui.getPermissions().put("role", user.getRole() != null ? user.getRole().getRole(): "default");
@@ -95,6 +102,7 @@ public class AccountManagementController {
                 userForGui.setAvatar(user.getAvatar());
                 userForGui.setUsername(user.getUsername());
                 userForGui.setPermissions(new HashMap<>());
+                userForGui.setGroupCode(user.getGroupCode());
                 userForGui.getPermissions().put("role", user.getRole() != null ? user.getRole().getRole(): "default");
                 userModel.setToken(authorization);
                 userModel.setUser(userForGui);
@@ -125,7 +133,8 @@ public class AccountManagementController {
                         )
                 )
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 600000))
+//                .setExpiration(new Date(System.currentTimeMillis() + 600000)) 30 min
+                .setExpiration(new Date(System.currentTimeMillis() + 1600000))
                 .signWith(SignatureAlgorithm.HS512,
                         secretKey.getBytes()).compact();
 
@@ -157,29 +166,48 @@ public class AccountManagementController {
     @RequestMapping(value="/register", method = RequestMethod.POST)
     public ResponseEntity displayRegistration(@RequestBody RegisterModel model) throws UserAlreadyExistException {
         log.info(model.toString());
+        String password = "";
         ImsUser existingUser = imsUserDAO.findByEmail(model.getEmail());
         if(existingUser != null) throw new UserAlreadyExistException();
-
         ImsUser user = new ImsUser();
-        user.setEmail(model.getEmail());
+        user.setAvatar("http://localhost:4000/api/v1/downloadFile/avatar.png");
+        user.setEmail(model.getEmail().toLowerCase());
         user.setPassword(model.getPassword());
-        user.setRole(imsRoleDAO.findByRole("Manager"));
         user.setFirstName(model.getFirstName());
         user.setLastName(model.getLastName());
         user.setPhone(model.getPhone());
         user.setEnabled(false);
-        user.setGroupCode(TaskCodeGenerator.newCode());
-        imsUserDAO.save(user);
-
-        ConfirmationToken confirmationToken = new ConfirmationToken(user);
-        confirmationTokenDAO.save(confirmationToken);
         SimpleMailMessage mailMessage = new SimpleMailMessage();
-        mailMessage.setTo(user.getEmail());
-        mailMessage.setSubject("Бүртгэлээ баталгаажуулна уу!");
-        mailMessage.setFrom("orjuun2012@gmail.com");
-        mailMessage.setText("Энэхүү URL ээр орж өөрийн бүртгэлээ баталгаажуулна уу : "
-                +"http://localhost:7000/confirm?token="+confirmationToken.getConfirmationToken());
 
+        mailMessage.setTo(user.getEmail());
+        mailMessage.setFrom("orjuun2012@gmail.com");
+
+        if(model.getIsInvitation() != null && model.getIsInvitation()){
+            ImsRole role = null;
+            if(model.getRole() != null) role = imsRoleDAO.findByRole(model.getRole());
+            user.setRole(role);
+            user.setGroupCode(model.getGroupCode());
+            password = TaskCodeGenerator.newCode().substring(0, 8);
+            user.setPassword(password);
+        } else {
+            user.setRole(imsRoleDAO.findByRole("manager"));
+            user.setGroupCode(TaskCodeGenerator.newCode());
+        }
+
+        imsUserDAO.save(user);
+        ConfirmationToken confirmationToken = new ConfirmationToken(user);
+        confirmationToken.setActive(true);
+        confirmationTokenDAO.save(confirmationToken);
+
+        if(model.getIsInvitation()){
+            mailMessage.setSubject("Таныг Creativity системд урьсан байна!");
+            mailMessage.setText("Таны системд нэвтрэх нууц үг: " + password +"\nЭнэхүү URL ээр орж өөрийн бүртгэлээ баталгаажуулна уу : "
+                    +"http://localhost:7000/mn/confirm/"+confirmationToken.getConfirmationToken());
+        } else {
+            mailMessage.setSubject("Бүртгэлээ баталгаажуулна уу!");
+            mailMessage.setText("Энэхүү URL ээр орж өөрийн бүртгэлээ баталгаажуулна уу : "
+                    +"http://localhost:7000/mn/confirm/"+confirmationToken.getConfirmationToken());
+        }
         emailSenderService.sendEmail(mailMessage);
 
         return ResponseEntity.ok("Та Email хаягаараа өөрийн бүртгэлээ баталгаажуулна уу");
@@ -188,12 +216,13 @@ public class AccountManagementController {
     @RequestMapping(value="/confirm-account", method= {RequestMethod.GET, RequestMethod.POST})
     public ResponseEntity confirmUserAccount(@RequestParam("token") String confirmationToken)
     {
-        ConfirmationToken token = confirmationTokenDAO.findByConfirmationToken(confirmationToken);
-
+        ConfirmationToken token = confirmationTokenDAO.findByConfirmationTokenAndActive(confirmationToken, true);
+        token.setActive(false);
         if(token != null)
         {
             ImsUser user = imsUserDAO.findByEmail(token.getUser().getEmail());
             user.setEnabled(true);
+            confirmationTokenDAO.save(token);
             imsUserDAO.save(user);
             return ResponseEntity.ok("Та амжилттай бүртгүүллээ");
         }

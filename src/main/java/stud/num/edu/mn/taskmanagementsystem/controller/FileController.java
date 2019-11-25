@@ -21,6 +21,7 @@ import java.util.stream.Collectors;
 import java.io.IOException;
 
 @RestController
+@RequestMapping("/api/v1")
 public class FileController {
 
     private static final Logger logger = LoggerFactory.getLogger(FileController.class);

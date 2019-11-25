@@ -22,6 +22,9 @@ public class ConfirmationToken {
     @Column(name="confirmation_token")
     private String confirmationToken;
 
+    @Column(name="active")
+    private Boolean active;
+
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdDate;
 
