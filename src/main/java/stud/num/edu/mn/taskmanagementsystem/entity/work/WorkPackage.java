@@ -19,7 +19,6 @@ import java.util.*;
 @Entity
 @Table(name = "WORK_PACKAGE", schema = "IMS")
 @SequenceGenerator(name="workPackageSeq", sequenceName = "IMS.SEQ_WORK_PACKAGE", allocationSize = 1)
-//Шинээр даалгавар үүсгэх класс
 public class WorkPackage extends BaseEntity {
     @Id
     @Column(name = "ID")
