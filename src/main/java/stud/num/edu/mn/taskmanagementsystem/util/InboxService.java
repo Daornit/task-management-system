@@ -9,10 +9,12 @@ import stud.num.edu.mn.taskmanagementsystem.entity.Inbox;
 import java.util.Date;
 
 @Service
+//Шуудангийн хэсэг
 public class InboxService {
     @Autowired
     InboxDAO inboxDAO;
 
+    //Шуудангийн хэсгийн объектууд болон өгөгдлийн санд хадгалах
     public void addInbox(String title, String content, ImsUser user, String link){
         Inbox inbox = new Inbox();
         inbox.setTitle(title);
