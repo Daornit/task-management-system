@@ -19,6 +19,7 @@ import java.util.Set;
 @Entity
 @Table(name = "TASK", schema = "IMS")
 @SequenceGenerator(name="taskSeq", sequenceName = "IMS.SEQ_TASK", allocationSize = 1)
+//Даалгаварын класс ба даалгавар үүсгэх, устгах зэргийг тодорхойлсон
 public class Task extends BaseEntity {
     @Id
     @Column(name = "ID")
