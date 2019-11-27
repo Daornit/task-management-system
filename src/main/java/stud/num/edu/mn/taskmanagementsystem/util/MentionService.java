@@ -12,6 +12,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Service
+//Сэтгэгдэл үлдээх хэсэгт хэрэглэгчийг тодорхойлох хэсэг
 public class MentionService {
 
     @Autowired
@@ -20,6 +21,7 @@ public class MentionService {
     @Autowired
     ImsUserDAO imsUserDAO;
 
+    //Шуудангийн хэсэгт email-ээр mention хийсэн хэрэглэгчид мэдэгдэх
     public void mention(ImsUser from, String content, String link){
         Matcher m = Pattern.compile("\\w+@\\w+.com").matcher(content);
         List<String> emailsList = new ArrayList<>();
