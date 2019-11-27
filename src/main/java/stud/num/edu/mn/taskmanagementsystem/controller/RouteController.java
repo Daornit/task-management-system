@@ -11,11 +11,13 @@ import stud.num.edu.mn.taskmanagementsystem.dao.RouteDAO;
 import stud.num.edu.mn.taskmanagementsystem.dao.WorkSpaceDAO;
 import stud.num.edu.mn.taskmanagementsystem.entity.ImsUser;
 import stud.num.edu.mn.taskmanagementsystem.entity.Route;
+import stud.num.edu.mn.taskmanagementsystem.entity.work.Task;
 import stud.num.edu.mn.taskmanagementsystem.entity.work.WorkPackage;
 import stud.num.edu.mn.taskmanagementsystem.entity.work.WorkSpace;
 
 import java.security.Principal;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Collectors;
 
 @RestController
@@ -31,6 +33,10 @@ public class RouteController {
     @Autowired
     RouteDAO routeDAO;
 
+    AtomicLong workSpaceCount = new AtomicLong(2L);
+    AtomicLong workPackageCount = new AtomicLong(300L);
+    AtomicLong taskCount = new AtomicLong(6000L);
+
     @GetMapping("/routes")
     public ResponseEntity<?> partialUpdateName(Principal principal) {
         ImsUser currentUser = imsUserDAO.findByEmail(principal.getName());
@@ -39,26 +45,31 @@ public class RouteController {
         List<WorkSpace> spaceList = workSpaceDAO.findAllByOwner(currentUser);
         spaceList.addAll(workSpaceDAO.findAllByActiveAndMember(currentUser.getId()));
 
-        Long i = 2L;
         for (WorkSpace space : spaceList){
             Route route = new Route();
-            route.setId(i);
+            route.setId(workSpaceCount.incrementAndGet());
             route.setIcon("project");
             route.setName(space.getName());
             route.setRoute("/work-space/" + space.getCode());
-            Long j = 300L;
             for (WorkPackage workPackage: space.getWorkPackages()){
                 Route subRoute = new Route();
-                subRoute.setId(j);
-                subRoute.setMenuParentId(i);
-                subRoute.setBreadcrumbParentId(i);
+                subRoute.setId(workPackageCount.incrementAndGet());
+                subRoute.setMenuParentId(workSpaceCount.get());
+                subRoute.setBreadcrumbParentId(workSpaceCount.get());
                 subRoute.setName(workPackage.getName());
                 subRoute.setRoute("/work-package/" + workPackage.getCode());
-                list.add(subRoute);
-                j = j + 1L;
+
+                for (Task task: workPackage.getTasks()){
+                    Route taskRoute = new Route();
+                    taskRoute.setId(taskCount.incrementAndGet());
+                    taskRoute.setMenuParentId(-1L);
+                    taskRoute.setName(task.getName());
+                    taskRoute.setRoute("/task/" + task.getCode());
+                    list.add(taskRoute);
+                }
+                list.add(subRoute);;
             }
             list.add(route);
-            i = i + 1L;
         }
         // sort by id
         Collections.sort(list);

@@ -1,7 +1,7 @@
 -- Системийн анхны чиглүүлэлтыг оруулж байна.
 INSERT INTO ims.route (id, breadcrumb_parent_id, icon, menu_parent_id, name, route) VALUES (5007, null, 'usergroup-add', null, 'Багын удирдлага', '/user');
 INSERT INTO ims.route (id, breadcrumb_parent_id, icon, menu_parent_id, name, route) VALUES (5002, null, 'inbox', null, 'Шуудан', '/inbox');
-INSERT INTO ims.route (id, breadcrumb_parent_id, icon, menu_parent_id, name, route) VALUES (5003, null, 'snippets', null, 'Тайлан', '/report');
+-- INSERT INTO ims.route (id, breadcrumb_parent_id, icon, menu_parent_id, name, route) VALUES (5003, null, 'snippets', null, 'Тайлан', '/report');
 -- INSERT INTO ims.route (id, breadcrumb_parent_id, icon, menu_parent_id, name, route) VALUES (5006, null, 'delete', null, 'Сэргээх', '/recovery');recovery
 -- INSERT INTO ims.route (id, breadcrumb_parent_id, icon, menu_parent_id, name, route) VALUES (5011, 1, 'font-size', 1, 'Тэмдэглэл', '/note');
 INSERT INTO ims.route (id, breadcrumb_parent_id, icon, menu_parent_id, name, route) VALUES (5012, 1, 'check-square', 1, 'Хийх даалгаврууд', '/to-do');

@@ -50,7 +50,7 @@ public class WorkPackageController {
         WorkPackage workPackage = workPackageDAO.findByCode(code);
         List<Task> tasks = List.copyOf(workPackage.getTasks());
         for (Task task : tasks){
-            if(task.getIsDeleted()) {
+            if(task.getIsDeleted() || task.getParentId() != null) {
                 workPackage.getTasks().remove(task);
             }
         }
@@ -76,6 +76,12 @@ public class WorkPackageController {
         return ResponseEntity.ok(saved);
     }
 
+    @GetMapping("/work-package/{code}/users")
+    public ResponseEntity getUsers(@PathVariable("code") String code) {
+        WorkPackage workPackage = workPackageDAO.findByCode(code);
+        WorkSpace workSpace = workSpaceDAO.findByCode(workPackage.getWorkSpaceCode());
+        return ResponseEntity.ok(workSpace.getTeam().getMembers());
+    }
     @DeleteMapping("/work-package/{id}")
     public ResponseEntity delete(@PathVariable("id") Long id) {
         WorkPackage workPackage = workPackageDAO.findById(id).get();
