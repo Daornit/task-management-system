@@ -17,9 +17,11 @@ import stud.num.edu.mn.taskmanagementsystem.util.TaskCodeGenerator;
 
 import java.security.Principal;
 import java.util.List;
-
+//Хүсэлтийг тодорхойлж удирдах хэсэг
 @RestController
+//Хүсэлтийг api гаар буцааж буй төрлүүд
 @RequestMapping("/api/v1")
+//Системийн үндсэн модулуудад харьяалагдах утгуудыг тодорхойлох
 public class TaskController {
     @Autowired
     HrmTeamDAO hrmTeamDAO;
@@ -47,7 +49,8 @@ public class TaskController {
 
     @Autowired
     InboxService inboxService;
-
+    
+    //GET ээр утгаа дамжуулах
     @GetMapping("/task/{code}")
     public ResponseEntity getByCode(@PathVariable("code") String code) {
         Task task = taskDAO.findByCode(code);
@@ -61,6 +64,7 @@ public class TaskController {
         return ResponseEntity.ok(task);
     }
 
+    //POST оор даалгавар үүсгэхэд оруулах утгыг серверлүү дамжуулах
     @PostMapping("/task/{code}/comment")
     public ResponseEntity addComment(@PathVariable("code") String code, @RequestBody CommentDTO commentDTO) {
         Task task = taskDAO.findByCode(code);
@@ -79,6 +83,7 @@ public class TaskController {
         return ResponseEntity.ok(saved);
     }
 
+    //DELETE ээр устгах хэсгийг id гаар нь олж устгана
     @DeleteMapping("/task/{id}")
     public ResponseEntity delete(@PathVariable("id") Long id) {
         Task task = taskDAO.findById(id).get();
@@ -87,6 +92,7 @@ public class TaskController {
         return ResponseEntity.ok("Амжилттай устгалаа!");
     }
 
+    //PUT ээр даалгавар засах ба хэрэглэгчид даалгавар томилж өгж байна
     @PutMapping("/task/{id}")
     public ResponseEntity update(@PathVariable("id") Long id, @RequestBody Task receivedTask, Principal principal) {
 
@@ -120,6 +126,7 @@ public class TaskController {
         }
         return ResponseEntity.ok("Амжилттай шинжиллээ!");
     }
+    //Шинэ үүсгэсэн даалгаврын default утга болон хэрхэн хэнд томилох
     @PostMapping("/task")
     public ResponseEntity create(@RequestBody() Task task, Principal principal) {
         ImsUser owner = imsUserDAO.findByEmail(principal.getName());
@@ -149,6 +156,7 @@ public class TaskController {
         return ResponseEntity.ok(workPackage);
     }
 
+    //Тухайн хүнд томилсон даалгавар
     @GetMapping("/to-do")
     public ResponseEntity toDo(Principal principal) {
         ImsUser currentUser = imsUserDAO.findByEmail(principal.getName());
@@ -158,6 +166,7 @@ public class TaskController {
         return ResponseEntity.ok(taskPersonalDTO);
     }
 
+    //тухайн хүний үүсгэсэн даалгавар
     @GetMapping("/to-assign")
     public ResponseEntity toAssign(Principal principal) {
         ImsUser currentUser = imsUserDAO.findByEmail(principal.getName());
