@@ -13,6 +13,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+//Сэтгэгдэл үлдээх хэсэгт байрлах обьектууд
 public class CommentDTO {
     private String id;
     private Long author;
