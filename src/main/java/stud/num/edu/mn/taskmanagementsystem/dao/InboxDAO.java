@@ -6,7 +6,7 @@ import stud.num.edu.mn.taskmanagementsystem.entity.ImsUser;
 import stud.num.edu.mn.taskmanagementsystem.entity.Inbox;
 
 import java.util.List;
-
+//Шуудангийн хэсгийг өгөгдлийн сангаас query ашиглаж гаргах
 public interface InboxDAO extends PagingAndSortingRepository<Inbox, Long> {
     @Query("SELECT i FROM Inbox i WHERE i.user = ?1 order by  i.date desc")
     List<Inbox> findAllByUser(ImsUser user);
