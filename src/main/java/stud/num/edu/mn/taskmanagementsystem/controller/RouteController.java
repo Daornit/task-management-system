@@ -33,12 +33,12 @@ public class RouteController {
     @Autowired
     RouteDAO routeDAO;
 
-    AtomicLong workSpaceCount = new AtomicLong(2L);
-    AtomicLong workPackageCount = new AtomicLong(300L);
-    AtomicLong taskCount = new AtomicLong(6000L);
-
     @GetMapping("/routes")
     public ResponseEntity<?> partialUpdateName(Principal principal) {
+        AtomicLong workSpaceCount = new AtomicLong(2L);
+        AtomicLong workPackageCount = new AtomicLong(300L);
+        AtomicLong taskCount = new AtomicLong(6000L);
+
         ImsUser currentUser = imsUserDAO.findByEmail(principal.getName());
         List<Route> list = routeDAO.findAll();
 

@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
+import org.hibernate.validator.constraints.Length;
 import stud.num.edu.mn.taskmanagementsystem.core.BaseEntity;
 import stud.num.edu.mn.taskmanagementsystem.entity.Comment;
 import stud.num.edu.mn.taskmanagementsystem.entity.ImsUser;
@@ -18,7 +19,7 @@ import java.util.*;
 @AllArgsConstructor
 @Entity
 @Table(name = "TASK", schema = "IMS")
-@SequenceGenerator(name="taskSeq", sequenceName = "IMS.SEQ_TASK", allocationSize = 1)
+@SequenceGenerator(name="taskSeq", sequenceName = "IMS.SEQ_TASK", allocationSize = 1, initialValue = 2000)
 //Даалгаварын класс ба даалгавар үүсгэх, устгах зэргийг тодорхойлсон
 public class Task extends BaseEntity {
     @Id
@@ -38,8 +39,8 @@ public class Task extends BaseEntity {
     @Column(name = "CODE")
     private String code;
 
-    @Column(name = "STATUS")
-    private String status;
+    @Column(name = "TASK_STATUS")
+    private String taskStatus;
 
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date startDate;
@@ -50,6 +51,7 @@ public class Task extends BaseEntity {
     @Column(name = "IS_DELETED")
     private Boolean isDeleted;
 
+    @Length(max = 10485760)
     @Column(name = "CONTENT")
     private String content;
 

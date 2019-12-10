@@ -17,7 +17,7 @@ import java.util.Date;
 @AllArgsConstructor
 @Entity
 @Table(name = "INBOX", schema = "IMS")
-@SequenceGenerator(name="inboxSeq", sequenceName = "IMS.SEQ_INBOX", allocationSize = 1)
+@SequenceGenerator(name="inboxSeq", sequenceName = "IMS.SEQ_INBOX", allocationSize = 1, initialValue = 2000)
 public class Inbox implements Serializable {
     @Id
     @GeneratedValue(generator = "inboxSeq", strategy = GenerationType.SEQUENCE)

@@ -14,7 +14,7 @@ import java.util.Objects;
 @AllArgsConstructor
 @Entity
 @Table(name = "ROUTE", schema = "IMS")
-@SequenceGenerator(name="imsRouteSeq", sequenceName = "IMS.SEQ_ROUTE", allocationSize = 1)
+@SequenceGenerator(name="imsRouteSeq", sequenceName = "IMS.SEQ_ROUTE", allocationSize = 1, initialValue = 2000)
 public class Route implements Serializable, Comparable<Route> {
     @Id
     @Column(name = "ID")

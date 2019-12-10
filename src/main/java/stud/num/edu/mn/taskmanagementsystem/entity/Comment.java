@@ -16,7 +16,7 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @Table(name = "COMMENT", schema = "IMS")
-@SequenceGenerator(name="commentSeq", sequenceName = "IMS.SEQ_COMMENT", allocationSize = 1)
+@SequenceGenerator(name="commentSeq", sequenceName = "IMS.SEQ_COMMENT", allocationSize = 1, initialValue = 2000)
 public class Comment implements Serializable, Comparable<Comment> {
     @Id
     @GeneratedValue(generator = "commentSeq", strategy = GenerationType.SEQUENCE)

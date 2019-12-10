@@ -1,6 +1,5 @@
 package stud.num.edu.mn.taskmanagementsystem.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
 import stud.num.edu.mn.taskmanagementsystem.core.BaseEntity;
 
@@ -11,7 +10,7 @@ import java.util.Set;
 @Data
 @Entity
 @Table(name = "TEAM", schema = "IMS")
-@SequenceGenerator(name = "teamSeq", sequenceName = "HRM.SEQ_IMS_TEAM", allocationSize = 1)
+@SequenceGenerator(name = "teamSeq", sequenceName = "HRM.SEQ_IMS_TEAM", allocationSize = 1, initialValue = 2000)
 public class Team extends BaseEntity {
     @Id
     @GeneratedValue(generator = "teamSeq", strategy = GenerationType.SEQUENCE)

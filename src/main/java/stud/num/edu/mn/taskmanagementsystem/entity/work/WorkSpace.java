@@ -19,7 +19,7 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @Table(name = "WORK_SPACE", schema = "IMS")
-@SequenceGenerator(name="workSpaceSeq", sequenceName = "IMS.SEQ_WORK_SPACE", allocationSize = 1)
+@SequenceGenerator(name="workSpaceSeq", sequenceName = "IMS.SEQ_WORK_SPACE", allocationSize = 1, initialValue = 2000)
 public class WorkSpace extends BaseEntity {
     @Id
     @Column(name = "ID")

@@ -50,7 +50,7 @@ public class TaskController {
     @Autowired
     InboxService inboxService;
     
-    //GET ээр утгаа дамжуулах
+    //GET хүсэлтээр тухайн дугаар дээрх даалгаварыг авна
     @GetMapping("/task/{code}")
     public ResponseEntity getByCode(@PathVariable("code") String code) {
         Task task = taskDAO.findByCode(code);
@@ -104,7 +104,7 @@ public class TaskController {
         task.setContent(receivedTask.getContent());
         task.setProcess(receivedTask.getProcess());
         task.setEndDate(receivedTask.getEndDate());
-        task.setStatus(receivedTask.getStatus());
+        task.setTaskStatus(receivedTask.getTaskStatus());
         task.setStartDate(receivedTask.getStartDate());
         if(task.getOwnerId() != null) owner = imsUserDAO.findById(receivedTask.getOwnerId()).get();
         task.setOwner(owner);

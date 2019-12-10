@@ -15,7 +15,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "USER", schema = "IMS")
 @RestResource
-@SequenceGenerator(name="ImsUserSeq", sequenceName = "IMS.SEQ_USER", allocationSize = 1, initialValue = 1000)
+@SequenceGenerator(name="ImsUserSeq", sequenceName = "IMS.SEQ_USER", allocationSize = 1, initialValue = 2000)
 public class ImsUser implements Serializable {
     @Id
     @Column(name = "ID")

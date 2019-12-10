@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
+import org.hibernate.validator.constraints.Length;
 import stud.num.edu.mn.taskmanagementsystem.core.BaseEntity;
 import stud.num.edu.mn.taskmanagementsystem.entity.Comment;
 import stud.num.edu.mn.taskmanagementsystem.entity.ImsUser;
@@ -28,6 +29,7 @@ public class WorkPackage extends BaseEntity {
     @Column(name = "NAME")
     private String name;
 
+    @Length(max = 10485760)
     @Column(name = "CONTENT")
     private String content;
 

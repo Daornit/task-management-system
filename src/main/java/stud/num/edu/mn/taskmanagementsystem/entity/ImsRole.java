@@ -13,7 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @Table(name = "ROLE", schema = "IMS")
-@SequenceGenerator(name="ImsRoleSeq", sequenceName = "IMS.SEQ_ROLE", allocationSize = 1)
+@SequenceGenerator(name="ImsRoleSeq", sequenceName = "IMS.SEQ_ROLE", allocationSize = 1, initialValue = 2000)
 public class ImsRole implements Serializable {
     @Id
     @Column(name = "ID")
