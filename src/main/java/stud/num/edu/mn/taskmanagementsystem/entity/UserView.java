@@ -6,7 +6,10 @@ import org.springframework.data.rest.core.annotation.RestResource;
 
 import javax.persistence.*;
 import java.io.Serializable;
-
+/*
+@author Bat-orgil
+@date 2019-12-01
+*/
 @Data
 @Entity
 @Subselect("SELECT us.id, us.email, us.avatar, us.enabled, us.first_name, us.last_name, us.phone, rl.role, us.group_code FROM IMS.user us\n" +

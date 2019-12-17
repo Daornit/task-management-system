@@ -8,7 +8,10 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import stud.num.edu.mn.taskmanagementsystem.entity.UserView;
 
 import java.util.List;
-
+/*
+@author Bat-orgil
+@date 2019-12-01
+*/
 @RepositoryRestResource(collectionResourceRel = "userView", path = "userView")
 public interface UserViewDAO extends PagingAndSortingRepository<UserView, Long> {
     @Query("SELECT s FROM UserView s WHERE s.email like CONCAT('%',:email,'%') AND s.groupCode = :groupCode")

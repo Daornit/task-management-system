@@ -14,7 +14,10 @@ import stud.num.edu.mn.taskmanagementsystem.entity.Inbox;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
-
+/*
+@author Bat-orgil
+@date 2019-12-01
+*/
 @RestController
 @RequestMapping("/api/v1")
 public class InboxController {

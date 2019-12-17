@@ -7,7 +7,10 @@ import stud.num.edu.mn.taskmanagementsystem.entity.ImsUser;
 import stud.num.edu.mn.taskmanagementsystem.entity.Inbox;
 
 import java.util.Date;
-
+/*
+@author Bat-orgil
+@date 2019-12-01
+*/
 @Service
 //Шуудангийн хэсэг
 public class InboxService {

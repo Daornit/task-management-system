@@ -17,7 +17,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
-
+/*
+@author Bat-orgil
+@date 2019-12-01
+*/
 public class TokenAuthenticationFilter extends OncePerRequestFilter {
 
     private Logger log = LoggerFactory.getLogger(ActivitiController.class);

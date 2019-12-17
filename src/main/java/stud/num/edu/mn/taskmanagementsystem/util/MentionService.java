@@ -9,7 +9,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
+/*
+@author Bat-orgil
+@date 2019-12-01
+*/
 @Service
 //Сэтгэгдэл үлдээх хэсэгт хэрэглэгчийг тодорхойлох хэсэг
 public class MentionService {

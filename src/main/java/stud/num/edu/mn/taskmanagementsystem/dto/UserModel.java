@@ -5,7 +5,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
-
+/*
+@author Bat-orgil
+@date 2019-12-01
+*/
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

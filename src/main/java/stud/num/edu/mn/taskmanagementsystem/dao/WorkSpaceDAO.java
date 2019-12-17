@@ -6,7 +6,10 @@ import stud.num.edu.mn.taskmanagementsystem.entity.ImsUser;
 import stud.num.edu.mn.taskmanagementsystem.entity.work.WorkSpace;
 
 import java.util.List;
-
+/*
+@author Bat-orgil
+@date 2019-12-01
+*/
 public interface WorkSpaceDAO extends PagingAndSortingRepository<WorkSpace, Long> {
     @Query("SELECT w FROM WorkSpace w " +
             "INNER JOIN w.team t " +

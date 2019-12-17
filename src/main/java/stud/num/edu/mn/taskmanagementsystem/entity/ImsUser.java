@@ -8,7 +8,10 @@ import org.springframework.data.rest.core.annotation.RestResource;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
-
+/*
+@author Bat-orgil
+@date 2019-12-01
+*/
 @Data
 @Entity
 @Table(name = "USER", schema = "IMS")

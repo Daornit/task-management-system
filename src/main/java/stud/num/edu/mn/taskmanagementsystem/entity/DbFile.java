@@ -6,7 +6,10 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-
+/*
+@author Bat-orgil
+@date 2019-12-01
+*/
 @Data
 @Entity
 @NoArgsConstructor

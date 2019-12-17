@@ -6,7 +6,10 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.util.Date;
 import java.util.UUID;
-
+/*
+@author Bat-orgil
+@date 2019-12-01
+*/
 @Data
 @Entity
 @Table(name = "CONFIRMATION_TOKEN", schema = "IMS")

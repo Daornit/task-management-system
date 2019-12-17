@@ -6,7 +6,10 @@ import stud.num.edu.mn.taskmanagementsystem.core.BaseEntity;
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
-
+/*
+@author Bat-orgil
+@date 2019-12-01
+*/
 @Data
 @Entity
 @Table(name = "TEAM", schema = "IMS")

@@ -7,7 +7,10 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
-
+/*
+@author Bat-orgil
+@date 2019-12-01
+*/
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

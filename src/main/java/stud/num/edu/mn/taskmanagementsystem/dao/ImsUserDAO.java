@@ -8,7 +8,10 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import stud.num.edu.mn.taskmanagementsystem.entity.ImsUser;
 
 import java.util.List;
-
+/*
+@author Bat-orgil
+@date 2019-12-01
+*/
 @RepositoryRestResource(collectionResourceRel = "imsUser", path = "imsUser")
 public interface ImsUserDAO extends PagingAndSortingRepository<ImsUser, Long> {
     @Query("SELECT s from ImsUser s where s.email = ?1")

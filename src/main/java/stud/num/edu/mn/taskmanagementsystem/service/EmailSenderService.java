@@ -10,7 +10,10 @@ import javax.mail.internet.*;
 import java.io.IOException;
 import java.util.Date;
 import java.util.Properties;
-
+/*
+@author Bat-orgil
+@date 2019-12-01
+*/
 @Service("emailSenderService")
 public class EmailSenderService {
     private JavaMailSender javaMailSender;

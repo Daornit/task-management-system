@@ -17,7 +17,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-
+/*
+@author Bat-orgil
+@date 2019-12-01
+*/
 @RestController
 @RequestMapping("/activiti")
 public class ActivitiController {

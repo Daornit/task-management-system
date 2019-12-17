@@ -9,7 +9,10 @@ import org.activiti.api.process.runtime.events.listener.ProcessRuntimeEventListe
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-
+/*
+@author Bat-orgil
+@date 2019-12-01
+*/
 @Service
 public class ProcessEventListener implements ProcessRuntimeEventListener {
 

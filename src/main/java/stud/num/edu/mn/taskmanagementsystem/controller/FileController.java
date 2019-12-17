@@ -16,7 +16,10 @@ import stud.num.edu.mn.taskmanagementsystem.service.DbFileStorageService;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
-
+/*
+@author Bat-orgil
+@date 2019-12-01
+*/
 @RestController
 @RequestMapping("/api/v1")
 public class FileController {

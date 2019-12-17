@@ -4,7 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.util.List;
-
+/*
+@author Bat-orgil
+@date 2019-12-01
+*/
 @Data
 @AllArgsConstructor
 public class HrmTeamDTO {
