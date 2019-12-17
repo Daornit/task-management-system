@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ProcessEventListener implements ProcessRuntimeEventListener{
+public class ProcessEventListener implements ProcessRuntimeEventListener {
 
     private Logger logger = LoggerFactory.getLogger(ProcessEventListener.class);
 

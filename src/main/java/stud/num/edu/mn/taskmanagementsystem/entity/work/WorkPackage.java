@@ -12,14 +12,15 @@ import stud.num.edu.mn.taskmanagementsystem.entity.Comment;
 import stud.num.edu.mn.taskmanagementsystem.entity.ImsUser;
 
 import javax.persistence.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @Table(name = "WORK_PACKAGE", schema = "IMS")
-@SequenceGenerator(name="workPackageSeq", sequenceName = "IMS.SEQ_WORK_PACKAGE", allocationSize = 1)
+@SequenceGenerator(name = "workPackageSeq", sequenceName = "IMS.SEQ_WORK_PACKAGE", allocationSize = 1)
 public class WorkPackage extends BaseEntity {
     @Id
     @Column(name = "ID")
@@ -43,14 +44,14 @@ public class WorkPackage extends BaseEntity {
     private Boolean isDeleted;
 
     @Column(name = "START_DATE")
-    @JsonFormat(pattern="yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private String startDate;
 
     @Column(name = "DEFAULT_VIEW")
     private String defaultView;
 
     @Column(name = "END_DATE")
-    @JsonFormat(pattern="yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private String endDate;
 
     @Column(name = "PROCESS_STATUS")
@@ -74,11 +75,11 @@ public class WorkPackage extends BaseEntity {
     @Transient
     private Long ownerId;
 
-    public Long getOwnerId(){
-        if(ownerId != null) {
+    public Long getOwnerId() {
+        if (ownerId != null) {
             return ownerId;
         }
-        if(owner != null) {
+        if (owner != null) {
             return owner.getId();
         }
         return null;

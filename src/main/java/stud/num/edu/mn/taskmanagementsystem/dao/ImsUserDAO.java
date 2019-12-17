@@ -3,7 +3,6 @@ package stud.num.edu.mn.taskmanagementsystem.dao;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import stud.num.edu.mn.taskmanagementsystem.entity.ImsUser;

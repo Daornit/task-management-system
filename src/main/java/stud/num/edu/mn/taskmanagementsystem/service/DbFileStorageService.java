@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 import stud.num.edu.mn.taskmanagementsystem.config.FileStorageProperties;
-import stud.num.edu.mn.taskmanagementsystem.controller.user.AccountManagementController;
 import stud.num.edu.mn.taskmanagementsystem.dao.FileDAO;
 import stud.num.edu.mn.taskmanagementsystem.dao.WorkPackageDAO;
 import stud.num.edu.mn.taskmanagementsystem.dto.PackageFileTreeDTO;
@@ -27,20 +26,16 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class DbFileStorageService {
 
+    private final Path fileStorageLocation;
     private Logger log = LoggerFactory.getLogger(DbFileStorageService.class);
-
     @Autowired
     private FileDAO fileDAO;
-
     @Autowired
     private WorkPackageDAO workPackageDAO;
-
-    private final Path fileStorageLocation;
 
     @Autowired
     public DbFileStorageService(FileStorageProperties fileStorageProperties) {
@@ -55,11 +50,35 @@ public class DbFileStorageService {
         }
     }
 
-    public DbFile storeFile(MultipartFile file, String code){
+    private static byte[] readBytesFromFile(String filePath) {
+        FileInputStream fileInputStream = null;
+        byte[] bytesArray = null;
+
+        try {
+            File file = new File(filePath);
+            bytesArray = new byte[(int) file.length()];
+
+            fileInputStream = new FileInputStream(file);
+            fileInputStream.read(bytesArray);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (fileInputStream != null) {
+                try {
+                    fileInputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return bytesArray;
+    }
+
+    public DbFile storeFile(MultipartFile file, String code) {
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
 
         try {
-            if(fileName.contains("..")){
+            if (fileName.contains("..")) {
                 throw new FileStorageException("Sorry FileName contains invalid path sequence " + fileName);
             }
             Path targetLocation = this.fileStorageLocation.resolve(TaskCodeGenerator.newCode());
@@ -72,22 +91,22 @@ public class DbFileStorageService {
         return null;
     }
 
-    public DbFile getFile(String fileId){
+    public DbFile getFile(String fileId) {
         DbFile dbFile = fileDAO.findById(fileId).orElseThrow(() -> new FileNotFoundException("File not found with id: " + fileId));
         dbFile.setData(readBytesFromFile(dbFile.getPath()));
         return dbFile;
     }
 
-    public List<DbFile> getFileByCode(String code){
+    public List<DbFile> getFileByCode(String code) {
         List<DbFile> dbFile = fileDAO.findAllByCode(code);
         return dbFile;
     }
 
-    public PackageFileTreeDTO getFileByPackageCode(String code){
+    public PackageFileTreeDTO getFileByPackageCode(String code) {
         WorkPackage workPackage = workPackageDAO.findByCode(code);
         PackageFileTreeDTO tree = new PackageFileTreeDTO(workPackage.getId() + "", workPackage.getName(), new ArrayList<>(), false);
-        for (Task task: workPackage.getTasks()){
-            if(!task.getIsDeleted()) {
+        for (Task task : workPackage.getTasks()) {
+            if (!task.getIsDeleted()) {
                 List<DbFile> dbFile = fileDAO.findAllByCode(task.getCode());
                 PackageFileTreeDTO childTree = new PackageFileTreeDTO(task.getId() + "", task.getName(), new ArrayList<>(), false);
                 for (DbFile file : dbFile) {
@@ -98,29 +117,5 @@ public class DbFileStorageService {
             }
         }
         return tree;
-    }
-
-    private static byte[] readBytesFromFile(String filePath){
-        FileInputStream fileInputStream = null;
-        byte[] bytesArray = null;
-
-        try {
-            File file = new File(filePath);
-            bytesArray = new byte[(int) file.length()];
-
-            fileInputStream = new FileInputStream(file);
-            fileInputStream.read(bytesArray);
-        } catch (IOException e){
-            e.printStackTrace();
-        } finally {
-            if (fileInputStream != null) {
-                try {
-                    fileInputStream.close();
-                } catch (IOException e){
-                    e.printStackTrace();
-                }
-            }
-        }
-        return bytesArray;
     }
 }

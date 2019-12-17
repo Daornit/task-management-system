@@ -42,9 +42,9 @@ public class UserView implements Serializable {
     @Column(name = "ROLE")
     private String role;
 
-    public String getUsername(){
-        if(this.lastName != null && this.lastName.length() > 0 && this.firstName != null) {
-            return lastName.substring(0,1).toUpperCase() + ". " + firstName;
+    public String getUsername() {
+        if (this.lastName != null && this.lastName.length() > 0 && this.firstName != null) {
+            return lastName.substring(0, 1).toUpperCase() + ". " + firstName;
         }
         return "Default";
     }

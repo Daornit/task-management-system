@@ -6,7 +6,6 @@ import stud.num.edu.mn.taskmanagementsystem.dao.ImsUserDAO;
 import stud.num.edu.mn.taskmanagementsystem.entity.ImsUser;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -22,15 +21,15 @@ public class MentionService {
     ImsUserDAO imsUserDAO;
 
     //Шуудангийн хэсэгт email-ээр mention хийсэн хэрэглэгчид мэдэгдэх
-    public void mention(ImsUser from, String content, String link){
+    public void mention(ImsUser from, String content, String link) {
         Matcher m = Pattern.compile("\\w+@\\w+.com").matcher(content);
         List<String> emailsList = new ArrayList<>();
 
-        while (m.find()){
+        while (m.find()) {
             emailsList.add(m.group());
         }
 
-        for (String email: emailsList){
+        for (String email : emailsList) {
             inboxService.addInbox(
                     "Танд " + from.getUsername() + " хэрэглэгч мэдэгдэл хийсэн байна.",
                     content,

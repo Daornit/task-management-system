@@ -7,15 +7,13 @@ import org.springframework.data.rest.core.annotation.RestResource;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 @Data
 @Entity
 @Table(name = "USER", schema = "IMS")
 @RestResource
-@SequenceGenerator(name="ImsUserSeq", sequenceName = "IMS.SEQ_USER", allocationSize = 1, initialValue = 2000)
+@SequenceGenerator(name = "ImsUserSeq", sequenceName = "IMS.SEQ_USER", allocationSize = 1, initialValue = 2000)
 public class ImsUser implements Serializable {
     @Id
     @Column(name = "ID")
@@ -66,9 +64,9 @@ public class ImsUser implements Serializable {
         this.password = password;
     }
 
-    public String getUsername(){
-        if(this.lastName != null && this.lastName.length() > 0 && this.firstName != null) {
-            return lastName.substring(0,1).toUpperCase() + ". " + firstName;
+    public String getUsername() {
+        if (this.lastName != null && this.lastName.length() > 0 && this.firstName != null) {
+            return lastName.substring(0, 1).toUpperCase() + ". " + firstName;
         }
         return "Default";
     }

@@ -1,30 +1,24 @@
 package stud.num.edu.mn.taskmanagementsystem.security;
 
 
-import java.io.IOException;
-import java.util.List;
-import java.util.stream.Collectors;
-
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import io.jsonwebtoken.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
-
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.ExpiredJwtException;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.MalformedJwtException;
-import io.jsonwebtoken.UnsupportedJwtException;
 import stud.num.edu.mn.taskmanagementsystem.controller.activiti.ActivitiController;
 
-public class TokenAuthenticationFilter extends OncePerRequestFilter{
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.List;
+import java.util.stream.Collectors;
+
+public class TokenAuthenticationFilter extends OncePerRequestFilter {
 
     private Logger log = LoggerFactory.getLogger(ActivitiController.class);
 
@@ -43,7 +37,7 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter{
         } catch (ExpiredJwtException | UnsupportedJwtException | MalformedJwtException e) {
             response.setStatus(HttpServletResponse.SC_FORBIDDEN);
             log.error(e.getMessage());
-            ((HttpServletResponse) response).sendError(HttpServletResponse.SC_FORBIDDEN, "Таны Token ны хугацаа дууссан байна.");
+            response.sendError(HttpServletResponse.SC_FORBIDDEN, "Таны Token ны хугацаа дууссан байна.");
             return;
         }
     }
@@ -70,8 +64,6 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter{
 
     private boolean checkJWTToken(HttpServletRequest request, HttpServletResponse res) {
         String authenticationHeader = request.getHeader(SecurityConstants.TOKEN_HEADER);
-        if (authenticationHeader == null || !authenticationHeader.startsWith(SecurityConstants.TOKEN_PREFIX))
-            return false;
-        return true;
+        return authenticationHeader != null && authenticationHeader.startsWith(SecurityConstants.TOKEN_PREFIX);
     }
 }

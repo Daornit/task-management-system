@@ -10,18 +10,18 @@ import stud.num.edu.mn.taskmanagementsystem.entity.Comment;
 import stud.num.edu.mn.taskmanagementsystem.entity.ImsUser;
 import stud.num.edu.mn.taskmanagementsystem.entity.work.Task;
 import stud.num.edu.mn.taskmanagementsystem.entity.work.WorkPackage;
-import stud.num.edu.mn.taskmanagementsystem.entity.work.WorkSpace;
 import stud.num.edu.mn.taskmanagementsystem.util.InboxService;
 import stud.num.edu.mn.taskmanagementsystem.util.MentionService;
 import stud.num.edu.mn.taskmanagementsystem.util.TaskCodeGenerator;
 
 import java.security.Principal;
 import java.util.List;
-//Хүсэлтийг тодорхойлж удирдах хэсэг
+
 @RestController
-//Хүсэлтийг api гаар буцааж буй төрлүүд
 @RequestMapping("/api/v1")
-//Системийн үндсэн модулуудад харьяалагдах утгуудыг тодорхойлох
+/**
+ *
+ */
 public class TaskController {
     @Autowired
     HrmTeamDAO hrmTeamDAO;
@@ -49,15 +49,15 @@ public class TaskController {
 
     @Autowired
     InboxService inboxService;
-    
+
     //GET хүсэлтээр тухайн дугаар дээрх даалгаварыг авна
     @GetMapping("/task/{code}")
     public ResponseEntity getByCode(@PathVariable("code") String code) {
         Task task = taskDAO.findByCode(code);
         List<Task> subTasks = List.copyOf(task.getTasks());
-        for (Task tsk : subTasks){
+        for (Task tsk : subTasks) {
             System.out.println("ParentId :: " + tsk.getParentId());
-            if(tsk.getIsDeleted() || tsk.getParentId() == null) {
+            if (tsk.getIsDeleted() || tsk.getParentId() == null) {
                 tsk.getTasks().remove(tsk);
             }
         }
@@ -106,17 +106,17 @@ public class TaskController {
         task.setEndDate(receivedTask.getEndDate());
         task.setTaskStatus(receivedTask.getTaskStatus());
         task.setStartDate(receivedTask.getStartDate());
-        if(task.getOwnerId() != null) owner = imsUserDAO.findById(receivedTask.getOwnerId()).get();
+        if (task.getOwnerId() != null) owner = imsUserDAO.findById(receivedTask.getOwnerId()).get();
         task.setOwner(owner);
-        if(receivedTask.getAssignId() != null) {
+        if (receivedTask.getAssignId() != null) {
             ImsUser assign = imsUserDAO.findById(receivedTask.getAssignId()).get();
             task.setAssign(assign);
-        };
+        }
 
         System.out.println("saved :: " + task.toString());
         Task saved = taskDAO.save(task);
 
-        if(saved.getAssign() != null) {
+        if (saved.getAssign() != null) {
             inboxService.addInbox(
                     "Танд даалгавар хуваарьлсан байна.",
                     "Таныг " + saved.getAssign().getUsername() + " хэрэглэгч \"" + task.getName() + "\" нэртэй даалгавар дээр томилсон байна.",
@@ -126,6 +126,7 @@ public class TaskController {
         }
         return ResponseEntity.ok("Амжилттай шинжиллээ!");
     }
+
     //Шинэ үүсгэсэн даалгаврын default утга болон хэрхэн хэнд томилох
     @PostMapping("/task")
     public ResponseEntity create(@RequestBody() Task task, Principal principal) {
@@ -135,21 +136,21 @@ public class TaskController {
         String taskCode = TaskCodeGenerator.newCode();
 
         task.setCode(taskCode);
-        if(task.getOwnerId() != null) owner = imsUserDAO.findById(task.getOwnerId()).get();
+        if (task.getOwnerId() != null) owner = imsUserDAO.findById(task.getOwnerId()).get();
         task.setOwner(owner);
         task.setContent("Энэхүү хэсэгт төслийн тайлбарыг бичнэ үү");
         task.setIsDeleted(false);
 
 
-        if(task.getAssignId() != null) {
+        if (task.getAssignId() != null) {
             ImsUser assign = imsUserDAO.findById(task.getAssignId()).get();
             task.setAssign(assign);
-        };
+        }
 
         Task saved = taskDAO.save(task);
 
         WorkPackage workPackage = workPackageDAO.findByCode(task.getWorkPackageCode());
-        if(workPackage != null) {
+        if (workPackage != null) {
             workPackage.getTasks().add(saved);
         }
         workPackageDAO.save(workPackage);

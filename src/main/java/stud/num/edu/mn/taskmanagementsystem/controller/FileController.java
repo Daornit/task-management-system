@@ -56,12 +56,12 @@ public class FileController {
     }
 
     @GetMapping("/fileList/{code}")
-    public ResponseEntity getByCode(@PathVariable String code){
+    public ResponseEntity getByCode(@PathVariable String code) {
         return ResponseEntity.ok(dbFileStorageService.getFileByCode(code));
     }
 
     @GetMapping("/fileByPackage/{code}")
-    public ResponseEntity getByPackageCode(@PathVariable String code){
+    public ResponseEntity getByPackageCode(@PathVariable String code) {
         return ResponseEntity.ok(dbFileStorageService.getFileByPackageCode(code));
     }
 }

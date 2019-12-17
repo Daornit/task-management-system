@@ -11,18 +11,18 @@ import java.util.UUID;
 @Entity
 @Table(name = "CONFIRMATION_TOKEN", schema = "IMS")
 @NoArgsConstructor
-@SequenceGenerator(name = "confirmationTokenSeq", sequenceName = "HRM.SEQ_CONFIRMATION_TOKEN", allocationSize = 1, initialValue = 1000 )
+@SequenceGenerator(name = "confirmationTokenSeq", sequenceName = "HRM.SEQ_CONFIRMATION_TOKEN", allocationSize = 1, initialValue = 1000)
 public class ConfirmationToken {
 
     @Id
     @GeneratedValue(generator = "confirmationTokenSeq", strategy = GenerationType.SEQUENCE)
-    @Column(name="token_id")
+    @Column(name = "token_id")
     private long tokenId;
 
-    @Column(name="confirmation_token")
+    @Column(name = "confirmation_token")
     private String confirmationToken;
 
-    @Column(name="active")
+    @Column(name = "active")
     private Boolean active;
 
     @Temporal(TemporalType.TIMESTAMP)

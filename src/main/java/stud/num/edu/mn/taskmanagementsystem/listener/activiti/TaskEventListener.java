@@ -18,7 +18,7 @@ public class TaskEventListener implements TaskRuntimeEventListener {
         if (runtimeEvent instanceof TaskActivatedEvent)
             logger.info("Do something, task is activated: " + runtimeEvent.toString());
         else if (runtimeEvent instanceof TaskAssignedEvent) {
-            TaskAssignedEvent taskEvent = (TaskAssignedEvent)runtimeEvent;
+            TaskAssignedEvent taskEvent = (TaskAssignedEvent) runtimeEvent;
             Task task = taskEvent.getEntity();
             logger.info("Do something, task is assigned: " + task.toString());
         } else if (runtimeEvent instanceof TaskCancelledEvent)

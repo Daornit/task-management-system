@@ -15,7 +15,7 @@ public class InboxService {
     InboxDAO inboxDAO;
 
     //Шуудангийн хэсгийн объектууд болон өгөгдлийн санд хадгалах
-    public void addInbox(String title, String content, ImsUser user, String link){
+    public void addInbox(String title, String content, ImsUser user, String link) {
         Inbox inbox = new Inbox();
         inbox.setTitle(title);
         inbox.setContent(content);

@@ -12,7 +12,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @Entity
 @Table(name = "IMS_PERMISSION", schema = "IMS")
-@SequenceGenerator(name="ImsPermissionSeq", sequenceName = "IMS.SEQ_IMS_PERMISSION", allocationSize = 1, initialValue = 2000)
+@SequenceGenerator(name = "ImsPermissionSeq", sequenceName = "IMS.SEQ_IMS_PERMISSION", allocationSize = 1, initialValue = 2000)
 public class ImsPermission implements Serializable {
     @Id
     @Column(name = "ID")
