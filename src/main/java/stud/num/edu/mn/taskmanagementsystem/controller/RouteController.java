@@ -75,8 +75,8 @@ public class RouteController {
         Collections.sort(list);
         // clear duplicates
         List<Route> result = new ArrayList<Route>();
+        boolean discovered = false;
         for(Route route: list){
-            boolean discovered = false;
             for (Route item: result){
                 if(item.equals(route)){
                     discovered = true;
@@ -85,6 +85,7 @@ public class RouteController {
             }
             if(!discovered){
                 result.add(route);
+                discovered = false;
             }
         }
         return ResponseEntity.ok(result);

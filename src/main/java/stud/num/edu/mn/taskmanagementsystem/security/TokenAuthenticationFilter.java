@@ -42,6 +42,7 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter{
             chain.doFilter(request, response);
         } catch (ExpiredJwtException | UnsupportedJwtException | MalformedJwtException e) {
             response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+            log.error(e.getMessage());
             ((HttpServletResponse) response).sendError(HttpServletResponse.SC_FORBIDDEN, "Таны Token ны хугацаа дууссан байна.");
             return;
         }

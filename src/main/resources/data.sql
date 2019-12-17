@@ -24,7 +24,7 @@ INSERT INTO ims."user" (id, address, avatar, email, enabled, first_name, group_c
 INSERT INTO ims."user" (id, address, avatar, email, enabled, first_name, group_code, last_name, password, phone, business_title, role) VALUES (1001, null, 'http://localhost:4000/api/v1/download/a20d6860-d1b9-47bc-a544-9391b429bf2b', 'john@gmail.com', true, 'Alex', '7fce98a2-464b-4a52-ba88-0d49d60c4c73', 'John', 'test@123', '80808080', null, 4);
 -- Хэрэглэгчийн баталгаажуулах кодыг утгыг оруулч байна
 INSERT INTO ims.confirmation_token (token_id, active, confirmation_token, created_date, id) VALUES (1000, true, 'c260f408-5f85-4509-8421-6da6cab0ee01', '2019-11-19 19:22:13.263000', 1000);
-INSERT INTO ims.confirmation_token (token_id, active, confirmation_token, created_date, id) VALUES (1001, true, 'c727b774-727a-421b-bdb7-dcd2e974166d', '2019-11-19 19:23:24.114000', 1001);
+INSERT INTO ims.confirmation_token (token_id, active, confirmation_token, created_date, id) VALUES (1001, false, 'c727b774-727a-421b-bdb7-dcd2e974166d', '2019-11-19 19:23:24.114000', 1001);
 INSERT INTO ims.confirmation_token (token_id, active, confirmation_token, created_date, id) VALUES (1002, true, '776af1d9-4286-46c1-a8e4-a02a13df49ca', '2019-11-19 19:24:02.875000', 1002);
 INSERT INTO ims.confirmation_token (token_id, active, confirmation_token, created_date, id) VALUES (1003, true, '9fd76b0f-5cd8-46c9-ad06-75b9d4759511', '2019-11-19 19:24:27.883000', 1003);
 -- Ажлын орчин үүсгэх

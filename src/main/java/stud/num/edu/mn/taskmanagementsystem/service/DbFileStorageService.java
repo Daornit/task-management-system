@@ -1,10 +1,13 @@
 package stud.num.edu.mn.taskmanagementsystem.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 import stud.num.edu.mn.taskmanagementsystem.config.FileStorageProperties;
+import stud.num.edu.mn.taskmanagementsystem.controller.user.AccountManagementController;
 import stud.num.edu.mn.taskmanagementsystem.dao.FileDAO;
 import stud.num.edu.mn.taskmanagementsystem.dao.WorkPackageDAO;
 import stud.num.edu.mn.taskmanagementsystem.dto.PackageFileTreeDTO;
@@ -29,6 +32,8 @@ import java.util.Map;
 @Service
 public class DbFileStorageService {
 
+    private Logger log = LoggerFactory.getLogger(DbFileStorageService.class);
+
     @Autowired
     private FileDAO fileDAO;
 
@@ -44,6 +49,7 @@ public class DbFileStorageService {
         try {
             Files.createDirectories(this.fileStorageLocation);
         } catch (Exception ex) {
+            log.error(ex.getMessage());
             throw new FileStorageException
                     ("Could not create the directory where the uploaded files will be stored.", ex);
         }
@@ -60,6 +66,7 @@ public class DbFileStorageService {
             Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
             return fileDAO.save(new DbFile(fileName, file.getContentType(), code, targetLocation.toString()));
         } catch (IOException e) {
+            log.error(e.getMessage());
             e.printStackTrace();
         }
         return null;

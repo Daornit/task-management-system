@@ -34,7 +34,7 @@ import java.util.stream.Collectors;
 @RequestMapping("/api/v1")
 public class AccountManagementController {
 
-    private Logger log = LoggerFactory.getLogger(ActivitiController.class);
+    private Logger log = LoggerFactory.getLogger(AccountManagementController.class);
 
     @Autowired
     ImsUserDAO imsUserDAO;
@@ -81,6 +81,7 @@ public class AccountManagementController {
                     .parseClaimsJws(token)
                     .getBody();
         } catch (Throwable throwable){
+            log.error(throwable.getMessage());
         }
         return ResponseEntity.ok(claims);
     }
@@ -217,9 +218,9 @@ public class AccountManagementController {
     public ResponseEntity confirmUserAccount(@RequestParam("token") String confirmationToken)
     {
         ConfirmationToken token = confirmationTokenDAO.findByConfirmationTokenAndActive(confirmationToken, true);
-        token.setActive(false);
         if(token != null)
         {
+            token.setActive(false);
             ImsUser user = imsUserDAO.findByEmail(token.getUser().getEmail());
             user.setEnabled(true);
             confirmationTokenDAO.save(token);
