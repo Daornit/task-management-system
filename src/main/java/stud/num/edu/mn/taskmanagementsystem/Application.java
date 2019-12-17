@@ -11,7 +11,11 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import stud.num.edu.mn.taskmanagementsystem.config.FileStorageProperties;
 import stud.num.edu.mn.taskmanagementsystem.security.TokenAuthenticationFilter;
-
+/*
+@author Bat-orgil
+@date 2019-12-01
+Spring Boot main driver Class
+*/
 @SpringBootApplication
 @EnableConfigurationProperties({
         FileStorageProperties.class
