@@ -5,10 +5,7 @@ import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 import java.io.Serializable;
 import java.util.Date;
-/*
-@author Bat-orgil
-@date 2019-12-01
-*/
+
 @MappedSuperclass
 public class BaseEntity implements Serializable {
     @Basic

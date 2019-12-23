@@ -8,16 +8,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import stud.num.edu.mn.taskmanagementsystem.dao.ImsUserDAO;
 import stud.num.edu.mn.taskmanagementsystem.dao.InboxDAO;
+import stud.num.edu.mn.taskmanagementsystem.dao.RouteDAO;
+import stud.num.edu.mn.taskmanagementsystem.dao.WorkSpaceDAO;
 import stud.num.edu.mn.taskmanagementsystem.entity.ImsUser;
 import stud.num.edu.mn.taskmanagementsystem.entity.Inbox;
+import stud.num.edu.mn.taskmanagementsystem.entity.Route;
+import stud.num.edu.mn.taskmanagementsystem.entity.work.WorkPackage;
+import stud.num.edu.mn.taskmanagementsystem.entity.work.WorkSpace;
 
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-/*
-@author Bat-orgil
-@date 2019-12-01
-*/
+
 @RestController
 @RequestMapping("/api/v1")
 public class InboxController {
@@ -33,8 +36,8 @@ public class InboxController {
         ImsUser currentUser = imsUserDAO.findByEmail(principal.getName());
         List<Inbox> inboxes = inboxDAO.findAllByUser(currentUser);
         List<Inbox> notifications = new ArrayList<>();
-        for (Inbox inbox : inboxes) {
-            if (inbox.getNotified() == null || !inbox.getNotified()) notifications.add(inbox);
+        for (Inbox inbox: inboxes){
+            if(inbox.getNotified() == null || !inbox.getNotified()) notifications.add(inbox);
         }
         return ResponseEntity.ok(notifications);
     }
@@ -46,7 +49,7 @@ public class InboxController {
     }
 
     @GetMapping("/inbox/{code}")
-    public ResponseEntity getByCode(@PathVariable String code) {
+    public ResponseEntity getByCode(@PathVariable String code){
         Inbox inbox = inboxDAO.findByCode(code);
         inbox.setNotified(true);
         inboxDAO.save(inbox);

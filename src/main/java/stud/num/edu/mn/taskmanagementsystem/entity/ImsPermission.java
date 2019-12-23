@@ -6,16 +6,13 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
-/*
-@author Bat-orgil
-@date 2019-12-01
-*/
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @Table(name = "IMS_PERMISSION", schema = "IMS")
-@SequenceGenerator(name = "ImsPermissionSeq", sequenceName = "IMS.SEQ_IMS_PERMISSION", allocationSize = 1, initialValue = 2000)
+@SequenceGenerator(name="ImsPermissionSeq", sequenceName = "IMS.SEQ_IMS_PERMISSION", allocationSize = 1, initialValue = 2000)
 public class ImsPermission implements Serializable {
     @Id
     @Column(name = "ID")

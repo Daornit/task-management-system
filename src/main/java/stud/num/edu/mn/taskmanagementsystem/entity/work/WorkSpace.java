@@ -1,5 +1,6 @@
 package stud.num.edu.mn.taskmanagementsystem.entity.work;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,16 +13,13 @@ import stud.num.edu.mn.taskmanagementsystem.entity.Team;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-/*
-@author Bat-orgil
-@date 2019-12-01
-*/
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @Table(name = "WORK_SPACE", schema = "IMS")
-@SequenceGenerator(name = "workSpaceSeq", sequenceName = "IMS.SEQ_WORK_SPACE", allocationSize = 1, initialValue = 2000)
+@SequenceGenerator(name="workSpaceSeq", sequenceName = "IMS.SEQ_WORK_SPACE", allocationSize = 1, initialValue = 2000)
 public class WorkSpace extends BaseEntity {
     @Id
     @Column(name = "ID")

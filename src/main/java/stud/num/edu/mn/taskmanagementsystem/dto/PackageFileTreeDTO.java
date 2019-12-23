@@ -4,13 +4,13 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.security.access.method.P;
+import stud.num.edu.mn.taskmanagementsystem.entity.ImsUser;
 import stud.num.edu.mn.taskmanagementsystem.entity.work.Task;
+import stud.num.edu.mn.taskmanagementsystem.entity.work.WorkPackage;
 
 import java.util.List;
-/*
-@author Bat-orgil
-@date 2019-12-01
-*/
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -21,7 +21,7 @@ public class PackageFileTreeDTO {
     private List<PackageFileTreeDTO> children;
     private Boolean isLeaf;
 
-    public static PackageFileTreeDTO toDTO(Task task) {
+    public static PackageFileTreeDTO toDTO(Task task){
 
         return PackageFileTreeDTO.builder()
                 .key(task.getId() + "")
@@ -29,6 +29,7 @@ public class PackageFileTreeDTO {
                 .build();
         //return null;
     }
+
 
 
 }

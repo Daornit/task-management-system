@@ -6,16 +6,13 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-/*
-@author Bat-orgil
-@date 2019-12-01
-*/
+
 @Data
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "FILE_STORE", schema = "IMS")
-@SequenceGenerator(name = "fileStoreSeq", sequenceName = "IMS.SEQ_FILE_STORE", allocationSize = 1, initialValue = 2000)
+@SequenceGenerator(name="fileStoreSeq", sequenceName = "IMS.SEQ_FILE_STORE", allocationSize = 1, initialValue = 2000)
 public class DbFile {
     @Id
     @Column(name = "ID")

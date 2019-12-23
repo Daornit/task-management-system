@@ -7,10 +7,7 @@ import org.activiti.api.task.runtime.events.listener.TaskRuntimeEventListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-/*
-@author Bat-orgil
-@date 2019-12-01
-*/
+
 @Service
 public class TaskEventListener implements TaskRuntimeEventListener {
 
@@ -21,7 +18,7 @@ public class TaskEventListener implements TaskRuntimeEventListener {
         if (runtimeEvent instanceof TaskActivatedEvent)
             logger.info("Do something, task is activated: " + runtimeEvent.toString());
         else if (runtimeEvent instanceof TaskAssignedEvent) {
-            TaskAssignedEvent taskEvent = (TaskAssignedEvent) runtimeEvent;
+            TaskAssignedEvent taskEvent = (TaskAssignedEvent)runtimeEvent;
             Task task = taskEvent.getEntity();
             logger.info("Do something, task is assigned: " + task.toString());
         } else if (runtimeEvent instanceof TaskCancelledEvent)

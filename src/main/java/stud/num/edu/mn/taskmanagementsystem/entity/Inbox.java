@@ -11,35 +11,32 @@ import org.hibernate.annotations.NotFoundAction;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
-/*
-@author Bat-orgil
-@date 2019-12-01
-*/
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @Table(name = "INBOX", schema = "IMS")
-@SequenceGenerator(name = "inboxSeq", sequenceName = "IMS.SEQ_INBOX", allocationSize = 1, initialValue = 2000)
+@SequenceGenerator(name="inboxSeq", sequenceName = "IMS.SEQ_INBOX", allocationSize = 1, initialValue = 2000)
 public class Inbox implements Serializable {
     @Id
     @GeneratedValue(generator = "inboxSeq", strategy = GenerationType.SEQUENCE)
-    @Column(name = "ID")
+    @Column(name="ID")
     private Long id;
 
-    @Column(name = "CODE")
+    @Column(name="CODE")
     private String code;
 
-    @Column(name = "TITLE")
+    @Column(name="TITLE")
     private String title;
 
-    @Column(name = "LINK")
+    @Column(name="LINK")
     private String link;
 
-    @Column(name = "CONTENT")
+    @Column(name="CONTENT")
     private String content;
 
-    @Column(name = "NOTIFIED")
+    @Column(name="NOTIFIED")
     private Boolean notified;
 
     @OneToOne(fetch = FetchType.LAZY, orphanRemoval = true)
@@ -47,6 +44,6 @@ public class Inbox implements Serializable {
     @NotFound(action = NotFoundAction.IGNORE)
     private ImsUser user;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date date;
 }

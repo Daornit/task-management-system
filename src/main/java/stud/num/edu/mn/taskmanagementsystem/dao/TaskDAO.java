@@ -5,15 +5,9 @@ import stud.num.edu.mn.taskmanagementsystem.entity.ImsUser;
 import stud.num.edu.mn.taskmanagementsystem.entity.work.Task;
 
 import java.util.List;
-/*
-@author Bat-orgil
-@date 2019-12-01
-*/
-//Өгөгдлийн сантай холболт үүсгэн query хийх боломж олгоно.
+//Өгөгдлийн сантай холболт үүсгэн query хийх боломж олгоно. 
 public interface TaskDAO extends PagingAndSortingRepository<Task, Long> {
     Task findByCode(String code);
-
     List<Task> findAllByOwnerAndIsDeleted(ImsUser user, Boolean deleted);
-
     List<Task> findAllByAssignAndIsDeleted(ImsUser user, Boolean deleted);
 }

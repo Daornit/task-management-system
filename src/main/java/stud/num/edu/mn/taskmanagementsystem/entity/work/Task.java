@@ -12,19 +12,14 @@ import stud.num.edu.mn.taskmanagementsystem.entity.Comment;
 import stud.num.edu.mn.taskmanagementsystem.entity.ImsUser;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-/*
-@author Bat-orgil
-@date 2019-12-01
-*/
+import java.util.*;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @Table(name = "TASK", schema = "IMS")
-@SequenceGenerator(name = "taskSeq", sequenceName = "IMS.SEQ_TASK", allocationSize = 1, initialValue = 2000)
+@SequenceGenerator(name="taskSeq", sequenceName = "IMS.SEQ_TASK", allocationSize = 1, initialValue = 2000)
 //Даалгаварын класс ба даалгавар үүсгэх, устгах зэргийг тодорхойлсон
 public class Task extends BaseEntity {
     @Id
@@ -47,10 +42,10 @@ public class Task extends BaseEntity {
     @Column(name = "TASK_STATUS")
     private String taskStatus;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date startDate;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date endDate;
 
     @Column(name = "IS_DELETED")
@@ -89,21 +84,21 @@ public class Task extends BaseEntity {
     @Transient
     private Long assignId;
 
-    public Long getOwnerId() {
-        if (ownerId != null) {
+    public Long getOwnerId(){
+        if(ownerId != null) {
             return ownerId;
         }
-        if (owner != null) {
+        if(owner != null) {
             return owner.getId();
         }
         return null;
     }
 
-    public Long getAssignId() {
-        if (assignId != null) {
+    public Long getAssignId(){
+        if(assignId != null) {
             return assignId;
         }
-        if (assign != null) {
+        if(assign != null) {
             return assign.getId();
         }
         return null;

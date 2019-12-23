@@ -7,10 +7,7 @@ import stud.num.edu.mn.taskmanagementsystem.entity.ImsUser;
 import stud.num.edu.mn.taskmanagementsystem.entity.Inbox;
 
 import java.util.Date;
-/*
-@author Bat-orgil
-@date 2019-12-01
-*/
+
 @Service
 //Шуудангийн хэсэг
 public class InboxService {
@@ -18,7 +15,7 @@ public class InboxService {
     InboxDAO inboxDAO;
 
     //Шуудангийн хэсгийн объектууд болон өгөгдлийн санд хадгалах
-    public void addInbox(String title, String content, ImsUser user, String link) {
+    public void addInbox(String title, String content, ImsUser user, String link){
         Inbox inbox = new Inbox();
         inbox.setTitle(title);
         inbox.setContent(content);

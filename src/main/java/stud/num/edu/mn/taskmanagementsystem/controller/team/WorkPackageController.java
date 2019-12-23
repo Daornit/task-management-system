@@ -15,11 +15,9 @@ import stud.num.edu.mn.taskmanagementsystem.util.MentionService;
 import stud.num.edu.mn.taskmanagementsystem.util.TaskCodeGenerator;
 
 import java.security.Principal;
+import java.util.Collections;
 import java.util.List;
-/*
-@author Bat-orgil
-@date 2019-12-01
-*/
+
 @RestController
 @RequestMapping("/api/v1")
 public class WorkPackageController {
@@ -51,8 +49,8 @@ public class WorkPackageController {
     public ResponseEntity getByCode(@PathVariable("code") String code) {
         WorkPackage workPackage = workPackageDAO.findByCode(code);
         List<Task> tasks = List.copyOf(workPackage.getTasks());
-        for (Task task : tasks) {
-            if (task.getIsDeleted() || task.getParentId() != null) {
+        for (Task task : tasks){
+            if(task.getIsDeleted() || task.getParentId() != null) {
                 workPackage.getTasks().remove(task);
             }
         }
@@ -84,7 +82,6 @@ public class WorkPackageController {
         WorkSpace workSpace = workSpaceDAO.findByCode(workPackage.getWorkSpaceCode());
         return ResponseEntity.ok(workSpace.getTeam().getMembers());
     }
-
     @DeleteMapping("/work-package/{id}")
     public ResponseEntity delete(@PathVariable("id") Long id) {
         WorkPackage workPackage = workPackageDAO.findById(id).get();
@@ -101,12 +98,11 @@ public class WorkPackageController {
         workPackage.setName(pack.getName());
         workPackage.setContent(pack.getContent());
         workPackage.setDefaultView(pack.getDefaultView());
-        if (workPackage.getOwnerId() != null) owner = imsUserDAO.findById(workPackage.getOwnerId()).get();
+        if(workPackage.getOwnerId() != null) owner = imsUserDAO.findById(workPackage.getOwnerId()).get();
         workPackage.setOwner(owner);
         workPackageDAO.save(workPackage);
         return ResponseEntity.ok("Амжилттай шинжиллээ!");
     }
-
     @PostMapping("/work-package")
     public ResponseEntity create(@RequestBody() WorkPackage workPackage, Principal principal) {
         ImsUser owner = imsUserDAO.findByEmail(principal.getName());
@@ -115,14 +111,14 @@ public class WorkPackageController {
         String workPackageCode = TaskCodeGenerator.newCode();
 
         workPackage.setCode(workPackageCode);
-        if (workPackage.getOwnerId() != null) owner = imsUserDAO.findById(workPackage.getOwnerId()).get();
+        if(workPackage.getOwnerId() != null) owner = imsUserDAO.findById(workPackage.getOwnerId()).get();
         workPackage.setOwner(owner);
         workPackage.setContent("Энэхүү хэсэгт төслийн тайлбарыг бичнэ үү");
         workPackage.setIsDeleted(false);
         WorkPackage saved = workPackageDAO.save(workPackage);
 
         WorkSpace workSpace = workSpaceDAO.findByCode(workPackage.getWorkSpaceCode());
-        if (workSpace != null) {
+        if(workSpace != null) {
             workSpace.getWorkPackages().add(saved);
         }
         workSpaceDAO.save(workSpace);

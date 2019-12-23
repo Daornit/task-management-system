@@ -17,10 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-/*
-@author Bat-orgil
-@date 2019-12-01
-*/
+
 @RestController
 @RequestMapping("/activiti")
 public class ActivitiController {
@@ -44,7 +41,7 @@ public class ActivitiController {
 
     @RequestMapping("/start-process")
     public ProcessInstance startProcess(
-            @RequestParam(value = "processDefinitionKey", defaultValue = "sample-diagram") String processDefinitionKey) {
+            @RequestParam(value="processDefinitionKey", defaultValue="sample-diagram") String processDefinitionKey) {
         ProcessInstance processInstance = processRuntime.start(ProcessPayloadBuilder
                 .start()
                 .withProcessDefinitionKey(processDefinitionKey)
@@ -64,7 +61,7 @@ public class ActivitiController {
     }
 
     @GetMapping("/process-instance-meta")
-    public ProcessInstanceMeta getProcessInstanceMeta(@RequestParam(value = "processInstanceId") String processInstanceId) {
+    public ProcessInstanceMeta getProcessInstanceMeta(@RequestParam(value="processInstanceId") String processInstanceId) {
         ProcessInstanceMeta processInstanceMeta = processRuntime.processInstanceMeta(processInstanceId);
 
         return processInstanceMeta;

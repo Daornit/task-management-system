@@ -6,17 +6,15 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
-/*
-@author Bat-orgil
-@date 2019-12-01
-*/
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @Table(name = "ROUTE", schema = "IMS")
-@SequenceGenerator(name = "imsRouteSeq", sequenceName = "IMS.SEQ_ROUTE", allocationSize = 1, initialValue = 2000)
+@SequenceGenerator(name="imsRouteSeq", sequenceName = "IMS.SEQ_ROUTE", allocationSize = 1, initialValue = 2000)
 public class Route implements Serializable, Comparable<Route> {
     @Id
     @Column(name = "ID")

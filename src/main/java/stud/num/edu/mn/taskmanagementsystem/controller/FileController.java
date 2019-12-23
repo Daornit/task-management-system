@@ -16,10 +16,7 @@ import stud.num.edu.mn.taskmanagementsystem.service.DbFileStorageService;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
-/*
-@author Bat-orgil
-@date 2019-12-01
-*/
+
 @RestController
 @RequestMapping("/api/v1")
 public class FileController {
@@ -59,12 +56,12 @@ public class FileController {
     }
 
     @GetMapping("/fileList/{code}")
-    public ResponseEntity getByCode(@PathVariable String code) {
+    public ResponseEntity getByCode(@PathVariable String code){
         return ResponseEntity.ok(dbFileStorageService.getFileByCode(code));
     }
 
     @GetMapping("/fileByPackage/{code}")
-    public ResponseEntity getByPackageCode(@PathVariable String code) {
+    public ResponseEntity getByPackageCode(@PathVariable String code){
         return ResponseEntity.ok(dbFileStorageService.getFileByPackageCode(code));
     }
 }

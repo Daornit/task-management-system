@@ -9,39 +9,36 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
-/*
-@author Bat-orgil
-@date 2019-12-01
-*/
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @Table(name = "COMMENT", schema = "IMS")
-@SequenceGenerator(name = "commentSeq", sequenceName = "IMS.SEQ_COMMENT", allocationSize = 1, initialValue = 2000)
+@SequenceGenerator(name="commentSeq", sequenceName = "IMS.SEQ_COMMENT", allocationSize = 1, initialValue = 2000)
 public class Comment implements Serializable, Comparable<Comment> {
     @Id
     @GeneratedValue(generator = "commentSeq", strategy = GenerationType.SEQUENCE)
-    @Column(name = "ID")
+    @Column(name="ID")
     private Long id;
 
-    @Column(name = "CODE")
+    @Column(name="CODE")
     private String code;
 
-    @Column(name = "CONTENT")
+    @Column(name="CONTENT")
     private String content;
 
-    @Column(name = "OWNER")
+    @Column(name="OWNER")
     private ImsUser owner;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date datetime;
 
-    public String getAvatar() {
+    public String getAvatar(){
         return owner.getAvatar();
     }
-
-    public String getAuthor() {
+    public String getAuthor(){
         return owner.getUsername();
     }
 
